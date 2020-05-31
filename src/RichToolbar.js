@@ -126,7 +126,14 @@ export default class RichToolbar extends Component {
                             width: iconSize,
                         }}
                     />
-                ) : null}
+                ) : (
+                    <Text
+                        style={{
+                            color: selected ? this.props.selectedIconTint : this.props.iconTint,
+                        }}>
+                        {action}
+                    </Text>
+                )}
             </TouchableOpacity>
         );
     }
