@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, StyleSheet, TouchableOpacity, View, Text} from 'react-native';
 import {actions} from './const';
 
 const defaultActions = [
@@ -24,8 +24,7 @@ function getDefaultIcon() {
 
 export default class RichToolbar extends Component {
     // static propTypes = {
-    //   getEditor?: PropTypes.func.isRequired,
-    //   editor?: PropTypes.object,
+    //   getEditor: PropTypes.func.isRequired,
     //   actions: PropTypes.array,
     //   onPressAddImage: PropTypes.func,
     //   selectedButtonStyle: PropTypes.object,
@@ -43,7 +42,7 @@ export default class RichToolbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editor: void 0,
+            editor: undefined,
             selectedItems: [],
         };
     }
@@ -71,7 +70,7 @@ export default class RichToolbar extends Component {
     }
 
     componentDidMount() {
-        const {editor: {current: editor} = {current: this.props?.getEditor()}} = this.props;
+        const editor = this.props.getEditor();
         if (!editor) {
             throw new Error('Toolbar has no editor!');
         } else {
@@ -107,42 +106,6 @@ export default class RichToolbar extends Component {
         }
     }
 
-    _onPress(action) {
-        switch (action) {
-            case actions.setBold:
-            case actions.setItalic:
-            case actions.insertBulletsList:
-            case actions.insertOrderedList:
-            case actions.setUnderline:
-            case actions.heading1:
-            case actions.heading2:
-            case actions.heading3:
-            case actions.heading4:
-            case actions.heading5:
-            case actions.heading6:
-            case actions.setParagraph:
-            case actions.removeFormat:
-            case actions.alignLeft:
-            case actions.alignCenter:
-            case actions.alignRight:
-            case actions.alignFull:
-            case actions.setSubscript:
-            case actions.setSuperscript:
-            case actions.setStrikethrough:
-            case actions.setHR:
-            case actions.setIndent:
-            case actions.setOutdent:
-            case actions.insertLink:
-                this.state.editor._sendAction(action, 'result');
-                break;
-            case actions.insertImage:
-                if (this.props.onPressAddImage) {
-                    this.props.onPressAddImage();
-                }
-                break;
-        }
-    }
-
     _defaultRenderAction(action, selected) {
         const icon = this._getButtonIcon(action);
         const {iconSize = 50} = this.props;
@@ -175,9 +138,8 @@ export default class RichToolbar extends Component {
     }
 
     render() {
-        const {style} = this.props;
         return (
-            <View style={[styles.barContainer, style]}>
+            <View style={[{height: 50, backgroundColor: '#D3D3D3', alignItems: 'center'}, this.props.style]}>
                 <FlatList
                     horizontal
                     keyExtractor={(item, index) => item.action + '-' + index}
@@ -189,6 +151,43 @@ export default class RichToolbar extends Component {
             </View>
         );
     }
+
+    _onPress(action) {
+        switch (action) {
+            case actions.setBold:
+            case actions.setItalic:
+            case actions.insertBulletsList:
+            case actions.insertOrderedList:
+            case actions.setUnderline:
+            case actions.setHighlight:
+            case actions.heading1:
+            case actions.heading2:
+            case actions.heading3:
+            case actions.heading4:
+            case actions.heading5:
+            case actions.heading6:
+            case actions.setParagraph:
+            case actions.removeFormat:
+            case actions.alignLeft:
+            case actions.alignCenter:
+            case actions.alignRight:
+            case actions.alignFull:
+            case actions.setSubscript:
+            case actions.setSuperscript:
+            case actions.setStrikethrough:
+            case actions.setHR:
+            case actions.setIndent:
+            case actions.setOutdent:
+            case actions.insertLink:
+                this.state.editor._sendAction(action, 'result');
+                break;
+            case actions.insertImage:
+                if (this.props.onPressAddImage) {
+                    this.props.onPressAddImage();
+                }
+                break;
+        }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -196,9 +195,4 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
     },
     defaultUnselectedButton: {},
-    barContainer: {
-        height: 50,
-        backgroundColor: '#D3D3D3',
-        alignItems: 'center',
-    },
 });

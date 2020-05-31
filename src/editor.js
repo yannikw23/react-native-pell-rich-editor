@@ -91,6 +91,14 @@ const HTML = `
                     return exec('strikeThrough');
                 }
             },
+            highlight: {
+                state: function() {
+                    return queryCommandState('backColor');
+                },
+                result: function() {
+                    return exec('backColor', '#2784BE');
+                }
+            },
             heading1: {
                 result: function() {
                     return exec(formatBlock, '<h1>');

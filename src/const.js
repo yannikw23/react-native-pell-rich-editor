@@ -6,6 +6,7 @@ export const actions = {
     setBold: 'bold',
     setItalic: 'italic',
     setUnderline: 'underline',
+    setHighlight: 'highlight',
     heading1: 'h1',
     heading2: 'h2',
     heading3: 'h3',
@@ -40,8 +41,9 @@ export const actions = {
     init: 'ZSSS_INIT',
     setEditorHeight: 'SET_EDITOR_HEIGHT',
     setFooterHeight: 'SET_FOOTER_HEIGHT',
-    setPlatform: 'SET_PLATFORM',
+    setPlatform: 'SET_PLATFORM'
 };
+
 
 export const messages = {
     CONTENT_HTML_RESPONSE: 'CONTENT_HTML_RESPONSE',
