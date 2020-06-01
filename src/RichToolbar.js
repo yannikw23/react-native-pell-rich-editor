@@ -42,7 +42,7 @@ export default class RichToolbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editor: undefined,
+            editor: void 0,
             selectedItems: [],
         };
     }
@@ -70,7 +70,7 @@ export default class RichToolbar extends Component {
     }
 
     componentDidMount() {
-        const editor = this.props.getEditor();
+        const {editor: {current: editor} = {current: this.props?.getEditor()}} = this.props;
         if (!editor) {
             throw new Error('Toolbar has no editor!');
         } else {
