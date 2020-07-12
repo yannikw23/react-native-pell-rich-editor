@@ -19,6 +19,7 @@ function getDefaultIcon() {
     texts[actions.insertBulletsList] = require('../img/icon_format_ul.png');
     texts[actions.insertOrderedList] = require('../img/icon_format_ol.png');
     texts[actions.insertLink] = require('../img/icon_format_link.png');
+    texts[actions.setHighlight] = require('../img/icon_format_highlight.png');
     return texts;
 }
 
